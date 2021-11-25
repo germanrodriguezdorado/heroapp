@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { useParams, Redirect } from 'react-router-dom';
 import { getHeroesById } from '../../selectors/getHeroById';
+// import batman from "../../assets/heroes/dc-batman.jpg"; // Importación de recurso estático
+const heroImages = require.context("../../assets/heroes", true);
 
 export const HeroScreen = ( {history} ) => {
 
@@ -21,7 +23,13 @@ export const HeroScreen = ( {history} ) => {
     return (
         <div className="row mt-5">
             <div className="col-4">
-                <img src={`../assets/heroes/${heroeId}.jpg`} className="img-thumbnail animate__animated animate__fadeInLeft" alt={superhero}/>
+                <img 
+                    // src = {`../assets/heroes/${heroeId}.jpg`}  // Desde public/assets
+                    // src = { batman } // Import
+                    src={heroImages(`./${ heroeId }.jpg`).default }
+                    className="img-thumbnail animate__animated animate__fadeInLeft" 
+                    alt={superhero}
+                />
             </div>
 
             <div className="col-8 animate__animated animate__fadeIn">
